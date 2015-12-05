@@ -14,6 +14,7 @@ public class TestClass extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    //siia kirjutan ühe kommentaari
 
     @Override
     public void start(Stage primaryStage) throws Exception {
