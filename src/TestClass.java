@@ -12,10 +12,26 @@ public class TestClass extends Application {
     Button l6peta = new Button();
 
     public static void main(String[] args) {
-        launch(args);
+
+       // launch(args);
+        tyhiM2nguv2li();
     }
-    //siia kirjutan ühe kommentaari
-    //siia kirjutan katsetamiseks veel ühe kommentaari
+
+
+  public static void tyhiM2nguv2li(){
+       int ridadeArv = 10;
+       int veergudeArv = 10;
+       int reaNumber = 1;
+       //char [][] m2nguv2li = new char[ridadeArv][veergudeArv];
+       System.out.println("  A B C D E F J K L M");
+       for (int i=0;i<ridadeArv; i++){
+           System.out.println();
+           for (int j=0;j<veergudeArv; j++){
+               System.out.print("*");
+               reaNumber = reaNumber+1;
+           }
+       }
+   }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -30,4 +46,5 @@ public class TestClass extends Application {
         primaryStage.setScene(valiLaevad);
         primaryStage.show();
     }
+
 }
