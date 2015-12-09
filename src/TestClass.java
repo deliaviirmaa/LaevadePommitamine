@@ -26,8 +26,9 @@ public class TestClass extends Application {
        System.out.println("  A B C D E F J K L M");
        for (int i=0;i<ridadeArv; i++){
            System.out.println();
+           System.out.print(i+1+" ");
            for (int j=0;j<veergudeArv; j++){
-               System.out.print("*");
+               System.out.print(" * ");
                reaNumber = reaNumber+1;
            }
        }
