@@ -13,23 +13,45 @@ public class TestClass extends Application {
 
     public static void main(String[] args) {
 
-       // launch(args);
-        tyhiM2nguv2li();
+       //launch(args);
+        // suurus muuta 11-ks ja siis lisada see tähestik sinna for loopi
+        int suurus = 10;
+
+        char [][] m2nguv2li = new char[suurus][suurus];
+        taidaValjak(m2nguv2li);
+        printManguValjak(m2nguv2li);
     }
 
-
-  public static void tyhiM2nguv2li(){
-       int ridadeArv = 10;
-       int veergudeArv = 10;
-       int reaNumber = 1;
+    public static void taidaValjak(char [][] valjak) {
+        for(int i = 0; i < valjak.length; i++) {
+            for(int j = 0; j < valjak.length; j++) {
+                valjak[j][i] = '*';
+            }
+        }
+    }
+  public static void printManguValjak(char [][] valjak){
        //char [][] m2nguv2li = new char[ridadeArv][veergudeArv];
+      for (int k=0; k<=valjak.length;k++){
+        if (k==0) {
+            System.out.print(" ");
+        }
+            else{
+                System.out.print(" "+"miagiTulebSiia" +" ");
+            }
+        }
+
        System.out.println("  A B C D E F J K L M");
-       for (int i=0;i<ridadeArv; i++){
+       for (int i=0;i<valjak.length; i++){
            System.out.println();
-           System.out.print(i+1+" ");
-           for (int j=0;j<veergudeArv; j++){
-               System.out.print(" * ");
-               reaNumber = reaNumber+1;
+
+           if(i<9) {
+               System.out.print(i + 1 + " ");
+           } else {
+               System.out.print(i + 1);
+           }
+
+           for (int j=0;j<valjak.length; j++){
+               System.out.print(" " + valjak[j][i] + " ");
            }
        }
    }
