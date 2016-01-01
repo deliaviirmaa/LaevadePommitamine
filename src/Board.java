@@ -62,7 +62,7 @@ public class Board {
         markShipOnBoard(shipStartPoint, lenght);
     }
 
-    private ShipStartPoint giveRandomStartPoint(){
+    private ShipStartPoint giveRandomStartPoint() {
         Random random = new Random();
         ShipStartPoint startPoint = new ShipStartPoint();
         startPoint.setCoordinateX(random.nextInt(LENGHT));
@@ -71,11 +71,36 @@ public class Board {
         return startPoint;
 
     }
-    private void markShipOnBoard(ShipStartPoint startPoint, int LENGHT){
-       int y = startPoint.getCoordinateY();
+
+    private void markShipOnBoard(ShipStartPoint startPoint, int length) {
+        int y = startPoint.getCoordinateY();
         int x = startPoint.getCoordinateX();
         battleBoard[y][x] = 'X';
+
+
+        if (length == 0) {
+            return;
+        }
+
+
+        if (startPoint.getDirection() == Direction.UP && x > 0 && x<LENGHT) {
+            startPoint.setCoordinateX(x - 1);
+            markShipOnBoard(startPoint, length - 1);
+        }
+        if (startPoint.getDirection() == Direction.DOWN && x>0 && x < LENGHT) {
+            startPoint.setCoordinateX(x + 1);
+            markShipOnBoard(startPoint, length - 1);
+        }
+        if (startPoint.getDirection() == Direction.LEFT && y > 0 && y<LENGHT) {
+            startPoint.setCoordinateY(y - 1);
+            markShipOnBoard(startPoint, length - 1);
+        }
+        if (startPoint.getDirection() == Direction.RIGHT && y>0 && y < LENGHT) {
+            startPoint.setCoordinateY(y + 1);
+            markShipOnBoard(startPoint, length - 1);
+        }
     }
+
 
 }
 
