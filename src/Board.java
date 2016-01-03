@@ -46,62 +46,166 @@ public class Board {
 
     private void placeShips() {
         placeShip(4);
+        printBattleBoard();
         placeShip(3);
+        printBattleBoard();
         placeShip(3);
+        printBattleBoard();
         placeShip(2);
+        printBattleBoard();
         placeShip(2);
+        printBattleBoard();
         placeShip(2);
+        printBattleBoard();
         placeShip(1);
+        printBattleBoard();
         placeShip(1);
+        printBattleBoard();
         placeShip(1);
+        printBattleBoard();
         placeShip(1);
+        printBattleBoard();
     }
 
     private void placeShip(int lenght) {
-        ShipStartPoint shipStartPoint = giveRandomStartPoint();
+        ShipStartPoint shipStartPoint = giveRandomStartPoint(lenght);
         markShipOnBoard(shipStartPoint, lenght);
     }
 
-    private ShipStartPoint giveRandomStartPoint() {
+    private ShipStartPoint giveRandomStartPoint(int lenght) {
         Random random = new Random();
         ShipStartPoint startPoint = new ShipStartPoint();
         startPoint.setCoordinateX(random.nextInt(LENGHT));
         startPoint.setCoordinateY(random.nextInt(LENGHT));
         startPoint.setDirection(Direction.values()[random.nextInt(4)]);
-        return startPoint;
-
+        if (isEnoughFreeSpace(startPoint, lenght)) {
+            return startPoint;
+        }
+        if (noShipThere(startPoint, lenght)) {
+            return startPoint;
+        }
+        return giveRandomStartPoint(lenght);
     }
 
     private void markShipOnBoard(ShipStartPoint startPoint, int length) {
         int y = startPoint.getCoordinateY();
         int x = startPoint.getCoordinateX();
-        battleBoard[y][x] = 'X';
+        battleBoard[x][y] = 'X';
 
 
-        if (length == 0) {
+        if (length == 1) {
             return;
         }
 
+        if (startPoint.getDirection() == Direction.UP && x > 0 && x < LENGHT) {
 
-        if (startPoint.getDirection() == Direction.UP && x > 0 && x<LENGHT) {
             startPoint.setCoordinateX(x - 1);
             markShipOnBoard(startPoint, length - 1);
         }
-        if (startPoint.getDirection() == Direction.DOWN && x>0 && x < LENGHT) {
+        if (startPoint.getDirection() == Direction.DOWN && x > 0 && x < LENGHT) {
             startPoint.setCoordinateX(x + 1);
             markShipOnBoard(startPoint, length - 1);
         }
-        if (startPoint.getDirection() == Direction.LEFT && y > 0 && y<LENGHT) {
+        if (startPoint.getDirection() == Direction.LEFT && y > 0 && y < LENGHT) {
             startPoint.setCoordinateY(y - 1);
             markShipOnBoard(startPoint, length - 1);
         }
-        if (startPoint.getDirection() == Direction.RIGHT && y>0 && y < LENGHT) {
+        if (startPoint.getDirection() == Direction.RIGHT && y > 0 && y < LENGHT) {
             startPoint.setCoordinateY(y + 1);
             markShipOnBoard(startPoint, length - 1);
         }
     }
 
+    private boolean isEnoughFreeSpace(ShipStartPoint startPoint, int leght) {
+        // vahetada kohad, et ei tuleks nullPointException
+        if (startPoint.getDirection().equals(Direction.RIGHT)) {
+            if (LENGHT - startPoint.getCoordinateY() >= leght) {
+                return true;
+            }
+        }
+        if (startPoint.getDirection().equals(Direction.LEFT)) {
+            if (LENGHT - (LENGHT - startPoint.getCoordinateY()) >= leght) {
+                return true;
+            }
+        }
+        if (startPoint.getDirection().equals(Direction.UP)) {
+            if (LENGHT - (LENGHT - startPoint.getCoordinateX()) >= leght) {
+                return true;
+            }
+        }
+        if (startPoint.getDirection().equals(Direction.DOWN)) {
+            if (LENGHT - startPoint.getCoordinateX() >= leght) {
+                return true;
+            }
+        }
 
+        return false;
+    }
+
+    private boolean noShipThere(ShipStartPoint startPoint, int length) {
+        for (int i = 0; i < length; i++) {
+            if (!pointFree(startPoint)) {
+                return false;
+            }
+            movePointInDirection(startPoint);
+        }
+        return true;
+    }
+// lisada kontrolli, kas ta asub mänguväljal
+
+    private boolean pointFree(ShipStartPoint startPoint) {
+        if (battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY()] == 'X') {
+            return false;
+        }
+        // ülemise kontroll
+        if (startPoint.getCoordinateX() - 1 >= 0 && battleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY()] == 'X') {
+            return false;
+        }
+        if (startPoint.getCoordinateX() + 1 <= 9 && battleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY()] == 'X') {
+            return false;
+        }
+        if (startPoint.getCoordinateY() - 1 >= 0 && battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY() - 1] == 'X') {
+            return false;
+        }
+        if (startPoint.getCoordinateY() + 1 <= 9 && battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY() + 1] == 'X') {
+            return false;
+        }
+        if (startPoint.getCoordinateX() + 1 <= 9 && startPoint.getCoordinateY() - 1 >= 0 && battleBoard[startPoint.getCoordinateX() + 1]
+                [startPoint.getCoordinateY() - 1] == 'X') {
+            return false;
+        }
+        if (startPoint.getCoordinateX() + 1 <= 9 && startPoint.getCoordinateY() + 1 <= 9 && battleBoard[startPoint.getCoordinateX() + 1]
+                [startPoint.getCoordinateY() + 1] == 'X') {
+            return false;
+        }
+        if (startPoint.getCoordinateX()-1 >=0 && startPoint.getCoordinateY()-1>=0 && battleBoard[startPoint.getCoordinateX()-1]
+                [startPoint.getCoordinateY()-1] == 'X'){
+            return false;
+        }
+        if (startPoint.getCoordinateX()-1>=0 && startPoint.getCoordinateY()<=9 && battleBoard[startPoint.getCoordinateX()-1]
+                [startPoint.getCoordinateY()+1]=='X'){
+            return false;
+        }
+        //TODO 4 suunda puudu
+
+        return true;
+
+    }
+
+    private void movePointInDirection(ShipStartPoint startPoint) {
+        if (startPoint.getDirection().equals(Direction.RIGHT)) {
+            startPoint.setCoordinateY(startPoint.getCoordinateY() + 1);
+        }
+        if (startPoint.getDirection().equals(Direction.LEFT)) {
+            startPoint.setCoordinateY(startPoint.getCoordinateY() + 1);
+        }
+        if (startPoint.getDirection().equals(Direction.DOWN)) {
+            startPoint.setCoordinateX(startPoint.getCoordinateX() + 1);
+        }
+        if (startPoint.getDirection().equals(Direction.UP)) {
+            startPoint.setCoordinateX(startPoint.getCoordinateX() + 1);
+        }
+    }
 }
 
 
