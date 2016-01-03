@@ -6,7 +6,7 @@ import java.util.Random;
 public class Board {
 
     public String username;
-    static final int LENGHT = 10;
+    static final int LENGTH = 10;
     private char[][] battleBoard;
 
     public char[][] getBattleBoard() {
@@ -17,9 +17,9 @@ public class Board {
     // y-vertikaal (j) kui on see ka, siis hakkab sellele ühele reale alla asju printima
 
     public void buildBattleBoard() {
-        battleBoard = new char[LENGHT][LENGHT];
-        for (int i = 0; i < LENGHT; i++) {
-            for (int j = 0; j < LENGHT; j++) {
+        battleBoard = new char[LENGTH][LENGTH];
+        for (int i = 0; i < LENGTH; i++) {
+            for (int j = 0; j < LENGTH; j++) {
                 battleBoard[j][i] = '*';
             }
         }
@@ -29,17 +29,17 @@ public class Board {
     public void printBattleBoard() {
 
         char[] t2hestik = new char[]{' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
-        for (int k = 0; k <= LENGHT - 1; k++) {
+        for (int k = 0; k <= LENGTH - 1; k++) {
             if (k == 0) {
                 System.out.print("   " + t2hestik[k] + " ");
             } else {
                 System.out.print(" " + t2hestik[k] + " ");
             }
         }
-        for (int i = 0; i < LENGHT; i++) {
+        for (int i = 0; i < LENGTH; i++) {
             System.out.println();
             System.out.print(i + " ");
-            for (int j = 0; j < LENGHT; j++) {
+            for (int j = 0; j < LENGTH; j++) {
                 System.out.print(" " + battleBoard[j][i] + " ");
             }
         }
@@ -69,75 +69,75 @@ public class Board {
         printBattleBoard();
     }
 
-    private void placeShip(int lenght) {
-        ShipStartPoint shipStartPoint = giveRandomStartPoint(lenght);
+    private void placeShip(int ShipLength) {
+        ShipStartPoint shipStartPoint = giveRandomStartPoint(ShipLength);
         System.out.println("starpoint:"+shipStartPoint.getCoordinateX()+ shipStartPoint.getCoordinateY()+ shipStartPoint.getDirection());
-        markShipOnBoard(shipStartPoint, lenght);
+        markShipOnBoard(shipStartPoint, ShipLength);
     }
 
-    private ShipStartPoint giveRandomStartPoint(int lenght) {
+    private ShipStartPoint giveRandomStartPoint(int ShipLength) {
         Random random = new Random();
         ShipStartPoint startPoint = new ShipStartPoint();
-        startPoint.setCoordinateX(random.nextInt(LENGHT));
-        startPoint.setCoordinateY(random.nextInt(LENGHT));
+        startPoint.setCoordinateX(random.nextInt(LENGTH));
+        startPoint.setCoordinateY(random.nextInt(LENGTH));
         startPoint.setDirection(Direction.values()[random.nextInt(4)]);
-        if (isEnoughFreeSpace(startPoint, lenght) && noShipThere(startPoint, lenght)) {
+        if (isEnoughFreeSpace(startPoint, ShipLength) && noShipThere(startPoint, ShipLength)) {
             return startPoint;
         }
 
-        return giveRandomStartPoint(lenght);
+        return giveRandomStartPoint(ShipLength);
     }
 
     // kui läheb üles, muudab y-t horisontaalselt jooksevad x-id (parem-vasak x')
-    private void markShipOnBoard(ShipStartPoint startPoint, int length) {
+    private void markShipOnBoard(ShipStartPoint startPoint, int shipLength) {
         int y = startPoint.getCoordinateY();
         int x = startPoint.getCoordinateX();
         battleBoard[x][y] = 'X';
 
 
-        if (length == 1) {
+        if (shipLength == 1) {
             return;
         }
 
-        if (startPoint.getDirection() == Direction.UP && y > 0 && y < LENGHT) {
+        if (startPoint.getDirection() == Direction.UP ) {
 
             startPoint.setCoordinateY(y - 1);
-            markShipOnBoard(startPoint, length - 1);
+            markShipOnBoard(startPoint, shipLength - 1);
         }
-        if (startPoint.getDirection() == Direction.DOWN && y > 0 && y < LENGHT) {
+        if (startPoint.getDirection() == Direction.DOWN ) {
             startPoint.setCoordinateY(y + 1);
-            markShipOnBoard(startPoint, length - 1);
+            markShipOnBoard(startPoint, shipLength - 1);
         }
-        if (startPoint.getDirection() == Direction.LEFT && x > 0 && x < LENGHT) {
+        if (startPoint.getDirection() == Direction.LEFT ) {
             startPoint.setCoordinateX(x - 1);
-            markShipOnBoard(startPoint, length - 1);
+            markShipOnBoard(startPoint, shipLength - 1);
         }
-        if (startPoint.getDirection() == Direction.RIGHT && x > 0 && x < LENGHT) {
+        if (startPoint.getDirection() == Direction.RIGHT) {
             startPoint.setCoordinateX(x + 1);
-            markShipOnBoard(startPoint, length - 1);
+            markShipOnBoard(startPoint, shipLength - 1);
         }
     }
 
     //!!! vaja üle mõelda (suundades x ja y muutunud)
-    private boolean isEnoughFreeSpace(ShipStartPoint startPoint, int leght) {
+    private boolean isEnoughFreeSpace(ShipStartPoint startPoint, int shipLength) {
         // vahetada kohad, et ei tuleks nullPointException
         if (startPoint.getDirection().equals(Direction.RIGHT)) {
-            if (LENGHT - startPoint.getCoordinateY() >= leght) {
+            if (LENGTH - startPoint.getCoordinateX() >= shipLength) {
                 return true;
             }
         }
         if (startPoint.getDirection().equals(Direction.LEFT)) {
-            if (startPoint.getCoordinateX()+1 >= leght) {
+            if (startPoint.getCoordinateX()+1 >= shipLength) {
                 return true;
             }
         }
         if (startPoint.getDirection().equals(Direction.UP)) {
-            if (startPoint.getCoordinateY()+1 >= leght) {
+            if (startPoint.getCoordinateY()+1 >= shipLength) {
                 return true;
             }
         }
         if (startPoint.getDirection().equals(Direction.DOWN)) {
-            if (LENGHT - startPoint.getCoordinateY() >= leght) {
+            if (LENGTH - startPoint.getCoordinateY() >= shipLength) {
                 return true;
             }
         }
@@ -145,8 +145,8 @@ public class Board {
         return false;
     }
 
-    private boolean noShipThere(ShipStartPoint startPoint, int length) {
-        for (int i = 0; i < length; i++) {
+    private boolean noShipThere(ShipStartPoint startPoint, int shipLength) {
+        for (int i = 0; i < shipLength; i++) {
             if (!pointFree(startPoint)) {
                 return false;
             }
@@ -230,4 +230,6 @@ public class Board {
 }
 
 
-
+// klass board validater ( valideermismeetodid sinna), sellelele teha testid, annan boardi ette
+// siin klassis kutsun välja ja annan battleboardi kaasa
+// muudan protectedeks
