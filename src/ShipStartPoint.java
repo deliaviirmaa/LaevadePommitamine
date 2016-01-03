@@ -29,6 +29,14 @@ public class ShipStartPoint {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
+    public ShipStartPoint() {
+    }
+
+    public ShipStartPoint(int x, int y, Direction direction) {
+        coordinateX = x;
+        coordinateY = y;
+        this.direction = direction;
+    }
 
 
 }
