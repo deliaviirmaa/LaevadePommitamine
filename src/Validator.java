@@ -8,7 +8,7 @@ public class Validator {
      * @param shipLength
      * @return
      */
-    Board battleBoard = new Board();
+
     public static boolean isEnoughFreeSpace(ShipStartPoint startPoint, int shipLength) {
         // vahetada kohad, et ei tuleks nullPointException
         if (startPoint.getDirection().equals(Direction.RIGHT)) {
@@ -41,12 +41,12 @@ public class Validator {
      * @param shipLength
      * @return
      */
-    public static boolean noShipThere(ShipStartPoint startPoint, int shipLength) {
+    public boolean noShipThere(ShipStartPoint startPoint, int shipLength,char[][] battleBoard) {
         for (int i = 0; i < shipLength; i++) {
-            if (!pointFree(startPoint)) {
+            if (!pointFree(startPoint, battleBoard)) {
                 return false;
             }
-            startPoint = Board.movePointInDirection(startPoint);
+            startPoint = movePointInDirection(startPoint);
         }
         return true;
     }
@@ -56,36 +56,61 @@ public class Validator {
      * @param startPoint
      * @return
      */
-    public static boolean pointFree(ShipStartPoint startPoint ) {
-        if (Board.getBattleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY()] == 'X') {
+    public boolean pointFree(ShipStartPoint startPoint, char[][] battleBoard ) {
+        if (battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY()] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateX() - 1 >= 0 && Board.getBattleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY()] == 'X') {
+        if (startPoint.getCoordinateX() - 1 >= 0 && battleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY()] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateX() + 1 <= 9 && Board.getBattleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY()] == 'X') {
+        if (startPoint.getCoordinateX() + 1 <= 9 && battleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY()] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateY() - 1 >= 0 && Board.getBattleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY() - 1] == 'X') {
+        if (startPoint.getCoordinateY() - 1 >= 0 && battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY() - 1] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateY() + 1 <= 9 && Board.getBattleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY() + 1] == 'X') {
+        if (startPoint.getCoordinateY() + 1 <= 9 && battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY() + 1] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateX() + 1 <= 9 && startPoint.getCoordinateY() - 1 >= 0 && Board.getBattleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY() - 1] == 'X') {
+        if (startPoint.getCoordinateX() + 1 <= 9 && startPoint.getCoordinateY() - 1 >= 0 && battleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY() - 1] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateX() + 1 <= 9 && startPoint.getCoordinateY() + 1 <= 9 && Board.getBattleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY() + 1] == 'X') {
+        if (startPoint.getCoordinateX() + 1 <= 9 && startPoint.getCoordinateY() + 1 <= 9 && battleBoard[startPoint.getCoordinateX() + 1][startPoint.getCoordinateY() + 1] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateX() - 1 >= 0 && startPoint.getCoordinateY() - 1 >= 0 && Board.getBattleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY() - 1] == 'X') {
+        if (startPoint.getCoordinateX() - 1 >= 0 && startPoint.getCoordinateY() - 1 >= 0 && battleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY() - 1] == 'X') {
             return false;
         }
-        if (startPoint.getCoordinateX() - 1 >= 0 && startPoint.getCoordinateY() + 1 <= 9 && Board.getBattleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY() + 1] == 'X') {
+        if (startPoint.getCoordinateX() - 1 >= 0 && startPoint.getCoordinateY() + 1 <= 9 && battleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY() + 1] == 'X') {
             return false;
         }
 
         return true;
 
     }
+    /**
+     * See meetod liigub mööda laeva pikkust valitud suunas, et saaks teostada kontrolli, kas seal juba oli mõni laev.
+     * @param startPoint
+     * @return
+     */
+    private ShipStartPoint movePointInDirection(ShipStartPoint startPoint) {
+        if (startPoint.getDirection().equals(Direction.RIGHT)) {
+            return new ShipStartPoint(startPoint.getCoordinateX() + 1,
+                    startPoint.getCoordinateY(), Direction.RIGHT);
+        }
+        if (startPoint.getDirection().equals(Direction.LEFT)) {
+            return new ShipStartPoint(startPoint.getCoordinateX() - 1,
+                    startPoint.getCoordinateY(), Direction.LEFT);
+        }
+        if (startPoint.getDirection().equals(Direction.DOWN)) {
+            return new ShipStartPoint(startPoint.getCoordinateX(),
+                    startPoint.getCoordinateY() + 1, Direction.DOWN);
+        }
+        if (startPoint.getDirection().equals(Direction.UP)) {
+            return new ShipStartPoint(startPoint.getCoordinateX(), startPoint.getCoordinateY()
+                    - 1, Direction.UP);
+        }
+        throw new RuntimeException("Impossible");
+    }
+
 }

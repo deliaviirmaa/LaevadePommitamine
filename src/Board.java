@@ -10,9 +10,7 @@ public class Board {
     static final int LENGTH = 10;
     private char[][] battleBoard;
 
-    public char[][] getBattleBoard() {
-        return battleBoard;
-    }
+
     Validator validator = new Validator();
 
 // X-horisontaal (i) kui on ainult see, siis pringib ühe rea
@@ -102,7 +100,7 @@ public class Board {
         startPoint.setCoordinateX(random.nextInt(LENGTH));
         startPoint.setCoordinateY(random.nextInt(LENGTH));
         startPoint.setDirection(Direction.values()[random.nextInt(4)]);
-        if (Validator.isEnoughFreeSpace(startPoint, ShipLength) && Validator.noShipThere(startPoint, ShipLength)) {
+        if (validator.isEnoughFreeSpace(startPoint, ShipLength) && validator.noShipThere(startPoint, ShipLength, battleBoard)) {
             return startPoint;
         }
 
@@ -147,30 +145,6 @@ public class Board {
 
 
 
-    /**
-     * See meetod liigub mööda laeva pikkust valitud suunas, et saaks teostada kontrolli, kas seal juba oli mõni laev.
-     * @param startPoint
-     * @return
-     */
-    private ShipStartPoint movePointInDirection(ShipStartPoint startPoint) {
-        if (startPoint.getDirection().equals(Direction.RIGHT)) {
-            return new ShipStartPoint(startPoint.getCoordinateX() + 1,
-                    startPoint.getCoordinateY(), Direction.RIGHT);
-        }
-        if (startPoint.getDirection().equals(Direction.LEFT)) {
-            return new ShipStartPoint(startPoint.getCoordinateX() - 1,
-                    startPoint.getCoordinateY(), Direction.LEFT);
-        }
-        if (startPoint.getDirection().equals(Direction.DOWN)) {
-            return new ShipStartPoint(startPoint.getCoordinateX(),
-                    startPoint.getCoordinateY() + 1, Direction.DOWN);
-        }
-        if (startPoint.getDirection().equals(Direction.UP)) {
-            return new ShipStartPoint(startPoint.getCoordinateX(), startPoint.getCoordinateY()
-                    - 1, Direction.UP);
-        }
-        throw new RuntimeException("Impossible");
-    }
 
 }
 
