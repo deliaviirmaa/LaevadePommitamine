@@ -4,7 +4,9 @@ import java.util.Scanner;
  * Created by Delia on 22.12.2015.
  */
 public class Game {
-
+    /**
+     * See meetod paneb mängu käima.
+     */
     public void runGame(){
         Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();

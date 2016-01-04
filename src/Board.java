@@ -16,6 +16,9 @@ public class Board {
 // X-horisontaal (i) kui on ainult see, siis pringib ühe rea
     // y-vertikaal (j) kui on see ka, siis hakkab sellele ühele reale alla asju printima
 
+    /**
+     * See meetod loob mänguvälja (kahemõõtmeline maatriks, mille pikkus on varem toodud LENGTH
+     */
     public void buildBattleBoard() {
         battleBoard = new char[LENGTH][LENGTH];
         for (int i = 0; i < LENGTH; i++) {
@@ -26,6 +29,9 @@ public class Board {
         placeShips();
     }
 
+    /**
+     * See meetod pringib mänguväljale tähed ja numbrid.
+     */
     public void printBattleBoard() {
 
         char[] t2hestik = new char[]{' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
@@ -46,6 +52,9 @@ public class Board {
         System.out.println();
     }
 
+    /**
+     * See meetod asetab laevad mänguväljale
+     */
     private void placeShips() {
         placeShip(4);
         printBattleBoard();
@@ -69,12 +78,22 @@ public class Board {
         printBattleBoard();
     }
 
+    /**
+     * See meetod otsib kindla pikkusega laeva jaoks kohta, kuhu ta paigutada.
+     * @param ShipLength
+     */
     private void placeShip(int ShipLength) {
         ShipStartPoint shipStartPoint = giveRandomStartPoint(ShipLength);
         System.out.println("starpoint:"+shipStartPoint.getCoordinateX()+ shipStartPoint.getCoordinateY()+ shipStartPoint.getDirection());
         markShipOnBoard(shipStartPoint, ShipLength);
     }
 
+    /**
+     * See meetod annab laevale suvalise alguspunkti (ja need meetodid, mis seal sees on, kontrollivad, kas see punkt sobib).
+     * Kui ei sobi, siis kutsub ise ennast uuesti välja.
+     * @param ShipLength
+     * @return
+     */
     private ShipStartPoint giveRandomStartPoint(int ShipLength) {
         Random random = new Random();
         ShipStartPoint startPoint = new ShipStartPoint();
@@ -89,6 +108,12 @@ public class Board {
     }
 
     // kui läheb üles, muudab y-t horisontaalselt jooksevad x-id (parem-vasak x')
+
+    /**
+     * See meetod märgib laeva väljakule ja näitab ära suuna, kuhu poole joonistada.
+     * @param startPoint
+     * @param shipLength
+     */
     private void markShipOnBoard(ShipStartPoint startPoint, int shipLength) {
         int y = startPoint.getCoordinateY();
         int x = startPoint.getCoordinateX();
@@ -118,7 +143,12 @@ public class Board {
         }
     }
 
-    //!!! vaja üle mõelda (suundades x ja y muutunud)
+    /**
+     * See meetod kontrillib, kas on piisavalt vaba ruumi, et laeva saaks kuhugi(sinna, kuhu suvaline punkt genereeriti) paigutada.
+     * @param startPoint
+     * @param shipLength
+     * @return
+     */
     private boolean isEnoughFreeSpace(ShipStartPoint startPoint, int shipLength) {
         // vahetada kohad, et ei tuleks nullPointException
         if (startPoint.getDirection().equals(Direction.RIGHT)) {
@@ -145,6 +175,12 @@ public class Board {
         return false;
     }
 
+    /**
+     * See meetod vaatab, kas seal pole juba laeva ees, kuhu uus laeva soovitakse paigutada.
+     * @param startPoint
+     * @param shipLength
+     * @return
+     */
     private boolean noShipThere(ShipStartPoint startPoint, int shipLength) {
         for (int i = 0; i < shipLength; i++) {
             if (!pointFree(startPoint)) {
@@ -154,13 +190,16 @@ public class Board {
         }
         return true;
     }
-// lisada kontrolli, kas ta asub mänguväljal
 
+    /**
+     * See meetod kontrollib, kas konkreetne koht on vaba.
+     * @param startPoint
+     * @return
+     */
     private boolean pointFree(ShipStartPoint startPoint) {
         if (battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY()] == 'X') {
             return false;
         }
-        // ülemise kontroll
         if (startPoint.getCoordinateX() - 1 >= 0 && battleBoard[startPoint.getCoordinateX() - 1][startPoint.getCoordinateY()] == 'X') {
             return false;
         }
@@ -190,23 +229,11 @@ public class Board {
 
     }
 
-    // tagastab shipstartpointi
-    /*
-    private void movePointInDirection(ShipStartPoint startPoint) {
-        if (startPoint.getDirection().equals(Direction.RIGHT)) {
-            startPoint.setCoordinateY(startPoint.getCoordinateY() + 1);
-        }
-        if (startPoint.getDirection().equals(Direction.LEFT)) {
-            startPoint.setCoordinateY(startPoint.getCoordinateY() + 1);
-        }
-        if (startPoint.getDirection().equals(Direction.DOWN)) {
-            startPoint.setCoordinateX(startPoint.getCoordinateX() + 1);
-        }
-        if (startPoint.getDirection().equals(Direction.UP)) {
-            startPoint.setCoordinateX(startPoint.getCoordinateX() + 1);
-        }
-    }
-    */
+    /**
+     * See meetod liigub mööda laeva pikkust valitud suunas, et saaks teostada kontrolli, kas seal juba oli mõni laev.
+     * @param startPoint
+     * @return
+     */
     private ShipStartPoint movePointInDirection(ShipStartPoint startPoint) {
         if (startPoint.getDirection().equals(Direction.RIGHT)) {
             return new ShipStartPoint(startPoint.getCoordinateX() + 1,
@@ -224,7 +251,7 @@ public class Board {
             return new ShipStartPoint(startPoint.getCoordinateX(), startPoint.getCoordinateY()
                     - 1, Direction.UP);
         }
-        throw new RuntimeException("Impossilbe");
+        throw new RuntimeException("Impossible");
     }
 
 }
