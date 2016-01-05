@@ -5,14 +5,14 @@ import java.util.Random;
  */
 public class Board {
 
-    public static double[][] getBattleBoard;
+
     public String username;
     static final int LENGTH = 10;
     private char[][] battleBoard;
 
 
     Validator validator = new Validator();
-
+    Game newGame = new Game();
 // X-horisontaal (i) kui on ainult see, siis pringib ühe rea
     // y-vertikaal (j) kui on see ka, siis hakkab sellele ühele reale alla asju printima
 
@@ -33,7 +33,7 @@ public class Board {
      * See meetod pringib mänguväljale tähed ja numbrid.
      */
     public void printBattleBoard() {
-
+        System.out.println(newGame.getUsername());
         char[] t2hestik = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
         for (int k = 0; k <= LENGTH - 1; k++) {
             if (k == 0) {
@@ -44,10 +44,10 @@ public class Board {
         }
         for (int i = 0; i < LENGTH; i++) {
             System.out.println();
-            if (i==LENGTH-1){
-                System.out.print((i+1)+" ");
+            if (i == LENGTH - 1) {
+                System.out.print((i + 1) + " ");
             } else {
-                System.out.print(" "+(i + 1) + " ");
+                System.out.print(" " + (i + 1) + " ");
             }
             for (int j = 0; j < LENGTH; j++) {
                 System.out.print(" " + battleBoard[j][i] + " ");
@@ -61,60 +61,52 @@ public class Board {
      */
     private void placeShips() {
         placeShip(4);
-        printBattleBoard();
         placeShip(3);
-        printBattleBoard();
         placeShip(3);
-        printBattleBoard();
         placeShip(2);
-        printBattleBoard();
         placeShip(2);
-        printBattleBoard();
         placeShip(2);
-        printBattleBoard();
         placeShip(1);
-        printBattleBoard();
         placeShip(1);
-        printBattleBoard();
         placeShip(1);
-        printBattleBoard();
         placeShip(1);
-        printBattleBoard();
     }
 
     /**
      * See meetod otsib kindla pikkusega laeva jaoks kohta, kuhu ta paigutada.
-     * @param ShipLength
+     *
+     * @param shipLength
      */
-    private void placeShip(int ShipLength) {
-        ShipStartPoint shipStartPoint = giveRandomStartPoint(ShipLength);
-        System.out.println("starpoint:"+shipStartPoint.getCoordinateX()+ shipStartPoint.getCoordinateY()+ shipStartPoint.getDirection());
-        markShipOnBoard(shipStartPoint, ShipLength);
+    private void placeShip(int shipLength) {
+        ShipStartPoint shipStartPoint = giveRandomStartPoint(shipLength);
+        markShipOnBoard(shipStartPoint, shipLength);
     }
 
     /**
      * See meetod annab laevale suvalise alguspunkti (ja need meetodid, mis seal sees on, kontrollivad, kas see punkt sobib).
      * Kui ei sobi, siis kutsub ise ennast uuesti välja.
-     * @param ShipLength
+     *
+     * @param shipLength
      * @return
      */
-    private ShipStartPoint giveRandomStartPoint(int ShipLength) {
+    private ShipStartPoint giveRandomStartPoint(int shipLength) {
         Random random = new Random();
         ShipStartPoint startPoint = new ShipStartPoint();
         startPoint.setCoordinateX(random.nextInt(LENGTH));
         startPoint.setCoordinateY(random.nextInt(LENGTH));
         startPoint.setDirection(Direction.values()[random.nextInt(4)]);
-        if (validator.isEnoughFreeSpace(startPoint, ShipLength) && validator.noShipThere(startPoint, ShipLength, battleBoard)) {
+        if (validator.isEnoughFreeSpace(startPoint, shipLength) && validator.noShipThere(startPoint, shipLength, battleBoard)) {
             return startPoint;
         }
 
-        return giveRandomStartPoint(ShipLength);
+        return giveRandomStartPoint(shipLength);
     }
 
     // kui läheb üles, muudab y-t horisontaalselt jooksevad x-id (parem-vasak x')
 
     /**
      * See meetod märgib laeva väljakule ja näitab ära suuna, kuhu poole joonistada.
+     *
      * @param startPoint
      * @param shipLength
      */
@@ -128,16 +120,16 @@ public class Board {
             return;
         }
 
-        if (startPoint.getDirection() == Direction.UP ) {
+        if (startPoint.getDirection() == Direction.UP) {
 
             startPoint.setCoordinateY(y - 1);
             markShipOnBoard(startPoint, shipLength - 1);
         }
-        if (startPoint.getDirection() == Direction.DOWN ) {
+        if (startPoint.getDirection() == Direction.DOWN) {
             startPoint.setCoordinateY(y + 1);
             markShipOnBoard(startPoint, shipLength - 1);
         }
-        if (startPoint.getDirection() == Direction.LEFT ) {
+        if (startPoint.getDirection() == Direction.LEFT) {
             startPoint.setCoordinateX(x - 1);
             markShipOnBoard(startPoint, shipLength - 1);
         }
@@ -148,11 +140,6 @@ public class Board {
     }
 
 
-
-
 }
 
 
-// klass board validater ( valideermismeetodid sinna), sellelele teha testid, annan boardi ette
-// siin klassis kutsun välja ja annan battleboardi kaasa
-// muudan protectedeks

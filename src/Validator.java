@@ -4,6 +4,7 @@
 public class Validator {
     /**
      * See meetod kontrollib, kas on piisavalt vaba ruumi, et laeva saaks kuhugi(sinna, kuhu suvaline punkt genereeriti) paigutada.
+     *
      * @param startPoint
      * @param shipLength
      * @return
@@ -17,12 +18,12 @@ public class Validator {
             }
         }
         if (startPoint.getDirection().equals(Direction.LEFT)) {
-            if (startPoint.getCoordinateX()+1 >= shipLength) {
+            if (startPoint.getCoordinateX() + 1 >= shipLength) {
                 return true;
             }
         }
         if (startPoint.getDirection().equals(Direction.UP)) {
-            if (startPoint.getCoordinateY()+1 >= shipLength) {
+            if (startPoint.getCoordinateY() + 1 >= shipLength) {
                 return true;
             }
         }
@@ -37,11 +38,12 @@ public class Validator {
 
     /**
      * See meetod vaatab, kas seal pole juba laeva ees, kuhu uus laeva soovitakse paigutada.
+     *
      * @param startPoint
      * @param shipLength
      * @return
      */
-    public boolean noShipThere(ShipStartPoint startPoint, int shipLength,char[][] battleBoard) {
+    public boolean noShipThere(ShipStartPoint startPoint, int shipLength, char[][] battleBoard) {
         for (int i = 0; i < shipLength; i++) {
             if (!pointFree(startPoint, battleBoard)) {
                 return false;
@@ -53,10 +55,11 @@ public class Validator {
 
     /**
      * See meetod kontrollib, kas konkreetne koht on vaba.
+     *
      * @param startPoint
      * @return
      */
-    public boolean pointFree(ShipStartPoint startPoint, char[][] battleBoard ) {
+    public boolean pointFree(ShipStartPoint startPoint, char[][] battleBoard) {
         if (battleBoard[startPoint.getCoordinateX()][startPoint.getCoordinateY()] == 'X') {
             return false;
         }
@@ -88,8 +91,10 @@ public class Validator {
         return true;
 
     }
+
     /**
      * See meetod liigub mööda laeva pikkust valitud suunas, et saaks teostada kontrolli, kas seal juba oli mõni laev.
+     *
      * @param startPoint
      * @return
      */
@@ -112,5 +117,13 @@ public class Validator {
         }
         throw new RuntimeException("Impossible");
     }
+/**
+    private boolean possibleToPlaceShipeThere(ShipStartPoint startPoint, int shipLength, char[][] battleBoard) {
 
+    if(isEnoughFreeSpace(startPoint, shipLength) && noShipThere(startPoint,shipLength,battleBoard)) {
+        return startPoint;
+    }
+        return true;
+}
+ */
 }
