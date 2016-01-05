@@ -9,7 +9,7 @@ public class Game {
     /**
      * See meetod paneb mängu käima.
      */
-    private String username;
+    private static String username;
     public void runGame(){
         introduction();
         Board emptyBoard = new Board();
@@ -33,6 +33,7 @@ public class Game {
         System.out.println("Sisesta oma nimi.");
         Scanner scanner = new Scanner(System.in);
        username = scanner.nextLine();
+        setUsername(username);
         return username;
 
     }

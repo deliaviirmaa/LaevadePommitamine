@@ -3,7 +3,7 @@
  */
 public class Validator {
     /**
-     * See meetod kontrollib, kas on piisavalt vaba ruumi, et laeva saaks kuhugi(sinna, kuhu suvaline punkt genereeriti) paigutada.
+     * See meetod kontrollib, kas on piisavalt vaba ruumi(kas laev jääb mänguvälja piiridesse) laeva paigutamiseks.
      *
      * @param startPoint
      * @param shipLength

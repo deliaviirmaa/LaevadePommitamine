@@ -6,13 +6,13 @@ import java.util.Random;
 public class Board {
 
 
-    public String username;
+
     static final int LENGTH = 10;
     private char[][] battleBoard;
 
 
     Validator validator = new Validator();
-    Game newGame = new Game();
+   Game newGame = new Game();
 // X-horisontaal (i) kui on ainult see, siis pringib ühe rea
     // y-vertikaal (j) kui on see ka, siis hakkab sellele ühele reale alla asju printima
 
