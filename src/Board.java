@@ -12,7 +12,7 @@ public class Board {
 
 
     Validator validator = new Validator();
-   Game newGame = new Game();
+
 // X-horisontaal (i) kui on ainult see, siis pringib ühe rea
     // y-vertikaal (j) kui on see ka, siis hakkab sellele ühele reale alla asju printima
 
@@ -33,7 +33,7 @@ public class Board {
      * See meetod pringib mänguväljale tähed ja numbrid.
      */
     public void printBattleBoard() {
-        System.out.println(newGame.getUsername());
+       // System.out.println(newGame.getUsername());
         char[] t2hestik = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
         for (int k = 0; k <= LENGTH - 1; k++) {
             if (k == 0) {
