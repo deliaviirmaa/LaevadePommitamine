@@ -34,12 +34,12 @@ public class Board {
      */
     public void printBattleBoard() {
        // System.out.println(newGame.getUsername());
-        char[] t2hestik = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
+        char[] letters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
         for (int k = 0; k <= LENGTH - 1; k++) {
             if (k == 0) {
-                System.out.print("    " + t2hestik[k] + " ");
+                System.out.print("    " + letters[k] + " ");
             } else {
-                System.out.print(" " + t2hestik[k] + " ");
+                System.out.print(" " + letters[k] + " ");
             }
         }
         for (int i = 0; i < LENGTH; i++) {

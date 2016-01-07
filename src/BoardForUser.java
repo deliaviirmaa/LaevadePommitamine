@@ -39,3 +39,8 @@ public class BoardForUser {
         System.out.println();
     }
 }
+
+/**
+kas ümbruses on x-e, muudan X-i 0-ks. Kui on 0, siis peab nulli ümbrust ka kontrollima.
+
+ */

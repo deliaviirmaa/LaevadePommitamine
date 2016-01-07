@@ -15,7 +15,7 @@ public class Game {
         introduction();
         BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
-        getUserGuess();
+        guessIsValid(getUserGuess());
         Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
@@ -52,6 +52,44 @@ public class Game {
         return userGuess;
     }
 
+    private boolean guessIsValid(char[] userGuess) {
+        //if ( firstIsLetter(userGuess)&& secondIsNumber(userGuess)) {
+          //  return true;
+        //}
+        while (!firstIsLetter(userGuess)&& !secondIsNumber(userGuess)) {
+            System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
+            getUserGuess();
+        }
+        return true;
+    }
+    private boolean firstIsLetter(char [] userGuess){
+        if (userGuess[0]=='A' || userGuess[0]=='B'|| userGuess[0]=='C' || userGuess[0]=='D' || userGuess[0]=='E' ||
+                userGuess[0]=='F'|| userGuess[0]=='G'|| userGuess[0]=='H'|| userGuess[0]=='I'|| userGuess[0]=='J'){
+            return true;
+        }
+        return false;
+    }
+    private boolean secondIsNumber(char[]userGuess){
+        if(userGuess.length==2 && (userGuess[1]=='1'||userGuess[1]=='2'|| userGuess[1]=='3' || userGuess[1]=='4' ||
+                userGuess[1]=='5' || userGuess[1]=='6' || userGuess[1]=='7' || userGuess[1]=='8' || userGuess[1]=='9')){
+            return true;
+        } else if (userGuess.length==3 && userGuess[1]=='1'&& userGuess[2]=='0'){
+            return true;
+        }
+
+        return false;
+    }
+    /*'while (!guessIsValid(){
+    System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
+
+    getUserGuess();
+    }
+    */
+
+    // check lehght
+    //koht 0 on täht (kuni j)
+    // koht2 on 0 kui on size 3
+    //koht 1 on number (kuni 9)
 
 
 }
