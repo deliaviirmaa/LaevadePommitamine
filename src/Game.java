@@ -7,26 +7,16 @@ public class Game {
 
 
     private static String username;
-
-    //public void setUserGuess(char[] userGuess) {
-        //this.userGuess = userGuess;
-    //}
-
-   // private char[] userGuess = getValidUserGuess();
+    private char[] userGuess;
 
     /**
      * See meetod paneb mängu käima.
      */
-
     public void runGame() {
-
         introduction();
         BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
-        char[] userGuess = getUserGuess();
         getValidUserGuess();
-        
-       // guessIsValid(getUserGuess());
         Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
@@ -41,7 +31,10 @@ public class Game {
         this.username = username;
     }
 
-
+    /**
+     * See meetod näitab kasutajale sissejuhatust ja küsib kasutajanime
+     * @return
+     */
     private String introduction() {
         System.out.println("Tere tulemast mängu laevade pommitamine. Sinu ülesandeks on leida üles kõik peidetud laevad. " +
                 "Laevade leidmiseks paku ükshaaval asukohti nt A5. Toredat mängu!");
@@ -52,20 +45,25 @@ public class Game {
         return username;
     }
 
+    /**
+     * See meetod tagastab korrektselt sisestatud kasutaja pakkumise
+     * @return
+     */
     private char[] getValidUserGuess() {
 
         do {
             getUserGuess();
         }
         while (!guessIsValid(userGuess));
-
-
         return userGuess;
     }
 
+    /**
+     * See meetod küsib kasutajalt pakkumist
+     * @return
+     */
     private char[] getUserGuess() {
         String userInserted;
-        char[] userGuess;
         System.out.println(username + ", tee oma pakkumine!");
         Scanner scanner = new Scanner(System.in);
         userInserted = scanner.nextLine();
@@ -74,6 +72,11 @@ public class Game {
         return userGuess;
     }
 
+    /**
+     * See meetod kontrollib, kas sisestus oli õige või on vaja uuesti küsida kasutajalt sisestust
+     * @param userGuess
+     * @return
+     */
     private boolean guessIsValid(char[] userGuess) {
 
         if (firstIsLetter(userGuess) && secondIsNumber(userGuess)) {
@@ -82,14 +85,14 @@ public class Game {
             System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
             return false;
         }
-        //  return true;
-        // else
-        //while (!firstIsLetter(userGuess)&& !secondIsNumber(userGuess)) {
-        // System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
 
     }
-    //return false;
 
+    /**
+     * See meetod kontrollib, kas sisestuses esimene sümbol on korrektne täht
+     * @param userGuess
+     * @return
+     */
     private boolean firstIsLetter(char[] userGuess) {
         if (userGuess[0] == 'A' || userGuess[0] == 'B' || userGuess[0] == 'C' || userGuess[0] == 'D' || userGuess[0] == 'E' ||
                 userGuess[0] == 'F' || userGuess[0] == 'G' || userGuess[0] == 'H' || userGuess[0] == 'I' || userGuess[0] == 'J') {
@@ -98,6 +101,11 @@ public class Game {
         return false;
     }
 
+    /**
+     * See meetod kontrollib, kas sisestuses numbrite osa on vastavuses reeglitega
+     * @param userGuess
+     * @return
+     */
     private boolean secondIsNumber(char[] userGuess) {
         if (userGuess.length == 2 && (userGuess[1] == '1' || userGuess[1] == '2' || userGuess[1] == '3' || userGuess[1] == '4' ||
                 userGuess[1] == '5' || userGuess[1] == '6' || userGuess[1] == '7' || userGuess[1] == '8' || userGuess[1] == '9')) {
@@ -108,17 +116,5 @@ public class Game {
 
         return false;
     }
-    /*'while (!guessIsValid(){
-    System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
-
-    getUserGuess();
-    }
-    */
-
-    // check lehght
-    //koht 0 on täht (kuni j)
-    // koht2 on 0 kui on size 3
-    //koht 1 on number (kuni 9)
-
 
 }
