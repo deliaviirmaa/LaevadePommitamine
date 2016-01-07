@@ -6,16 +6,27 @@ import java.util.Scanner;
 public class Game {
 
 
+    private static String username;
+
+    //public void setUserGuess(char[] userGuess) {
+        //this.userGuess = userGuess;
+    //}
+
+   // private char[] userGuess = getValidUserGuess();
+
     /**
      * See meetod paneb mängu käima.
      */
-    private static String username;
 
     public void runGame() {
+
         introduction();
         BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
-        guessIsValid(getUserGuess());
+        char[] userGuess = getUserGuess();
+        getValidUserGuess();
+        
+       // guessIsValid(getUserGuess());
         Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
@@ -41,6 +52,17 @@ public class Game {
         return username;
     }
 
+    private char[] getValidUserGuess() {
+
+        do {
+            getUserGuess();
+        }
+        while (!guessIsValid(userGuess));
+
+
+        return userGuess;
+    }
+
     private char[] getUserGuess() {
         String userInserted;
         char[] userGuess;
@@ -53,27 +75,34 @@ public class Game {
     }
 
     private boolean guessIsValid(char[] userGuess) {
-        //if ( firstIsLetter(userGuess)&& secondIsNumber(userGuess)) {
-          //  return true;
-        //}
-        while (!firstIsLetter(userGuess)&& !secondIsNumber(userGuess)) {
+
+        if (firstIsLetter(userGuess) && secondIsNumber(userGuess)) {
+            return true;
+        } else {
             System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
-            getUserGuess();
+            return false;
         }
-        return true;
+        //  return true;
+        // else
+        //while (!firstIsLetter(userGuess)&& !secondIsNumber(userGuess)) {
+        // System.out.println("Midagi läks valesti. Sisestus peab olema kujul nt. A5.");
+
     }
-    private boolean firstIsLetter(char [] userGuess){
-        if (userGuess[0]=='A' || userGuess[0]=='B'|| userGuess[0]=='C' || userGuess[0]=='D' || userGuess[0]=='E' ||
-                userGuess[0]=='F'|| userGuess[0]=='G'|| userGuess[0]=='H'|| userGuess[0]=='I'|| userGuess[0]=='J'){
+    //return false;
+
+    private boolean firstIsLetter(char[] userGuess) {
+        if (userGuess[0] == 'A' || userGuess[0] == 'B' || userGuess[0] == 'C' || userGuess[0] == 'D' || userGuess[0] == 'E' ||
+                userGuess[0] == 'F' || userGuess[0] == 'G' || userGuess[0] == 'H' || userGuess[0] == 'I' || userGuess[0] == 'J') {
             return true;
         }
         return false;
     }
-    private boolean secondIsNumber(char[]userGuess){
-        if(userGuess.length==2 && (userGuess[1]=='1'||userGuess[1]=='2'|| userGuess[1]=='3' || userGuess[1]=='4' ||
-                userGuess[1]=='5' || userGuess[1]=='6' || userGuess[1]=='7' || userGuess[1]=='8' || userGuess[1]=='9')){
+
+    private boolean secondIsNumber(char[] userGuess) {
+        if (userGuess.length == 2 && (userGuess[1] == '1' || userGuess[1] == '2' || userGuess[1] == '3' || userGuess[1] == '4' ||
+                userGuess[1] == '5' || userGuess[1] == '6' || userGuess[1] == '7' || userGuess[1] == '8' || userGuess[1] == '9')) {
             return true;
-        } else if (userGuess.length==3 && userGuess[1]=='1'&& userGuess[2]=='0'){
+        } else if (userGuess.length == 3 && userGuess[1] == '1' && userGuess[2] == '0') {
             return true;
         }
 
