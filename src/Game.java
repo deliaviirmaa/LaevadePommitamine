@@ -10,7 +10,10 @@ public class Game {
     private char[] userGuess;
     private int x;
     private int y;
+    private int numberOfHits = 0;
+    private int numberOfGuess = 0;
     Board emptyBoard = new Board();
+
     /**
      * See meetod paneb mängu käima.
      */
@@ -18,12 +21,13 @@ public class Game {
         introduction();
         BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
-        getValidUserGuess();
-
-        //Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
-        isHit(modifyUserGuess(userGuess));
+        while (numberOfHits < 20) {
+            getValidUserGuess();
+            modifyUserGuess(userGuess);
+            isHit();
+        }
     }
 
     public String getUsername() {
@@ -61,6 +65,7 @@ public class Game {
             getUserGuess();
         }
         while (!guessIsValid(userGuess));
+        numberOfGuess++;
         return userGuess;
     }
 
@@ -127,16 +132,21 @@ public class Game {
         return false;
     }
 
-    private char[][] modifyUserGuess(char[] userGuess) {
-
-        char[][] userGuessInCoordinates;
+    /**
+     * See meetod muudab kasutaja poolt sisestatud andmed koordinaatideks
+     * @param userGuess
+     */
+    private void modifyUserGuess(char[] userGuess) {
         modifyLetterFromQuess(userGuess);
         modifyNumberFromQuess(userGuess);
-        userGuessInCoordinates = new char[x][y];
-        System.out.println("x: "+x+"y: "+y);
-        return userGuessInCoordinates;
+        System.out.println("x: " + x + "y: " + y);
     }
 
+    /**
+     * See meetod ütleb, mis tähele vastab mingi x koordinaat
+     * @param userGuess
+     * @return
+     */
     private int modifyLetterFromQuess(char[] userGuess) {
         if (userGuess[0] == 'A') {
             x = 0;
@@ -171,18 +181,31 @@ public class Game {
         return x;
     }
 
+    /**
+     * See meetod ütleb, mis numbrile vastab mingi y-koordinaat
+     * @param userGuess
+     * @return
+     */
     private int modifyNumberFromQuess(char[] userGuess) {
         if (userGuess.length == 3) {
             y = 10;
         } else {
-          y=Character.getNumericValue(userGuess[1])-1;
+            y = Character.getNumericValue(userGuess[1]) - 1;
         }
         return y;
     }
 
-    private boolean isHit(char[][] userQuessInCoordinates){
+    /**
+     * See meetod ütleb, kas kasutaja sai laevale pihta või mitte
+     */
+    private void isHit() {
 
-        if (emptyBoard.b) {
-        })
+        if (emptyBoard.getBattleBoard()[x][y] == 'X') {
+            System.out.println("Pihta!");
+            numberOfHits++;
+        } else {
+            System.out.println("Mööda!");
+
+        }
     }
 }

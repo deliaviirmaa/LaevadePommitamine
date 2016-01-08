@@ -8,6 +8,16 @@ public class Board {
 
 
     static final int LENGTH = 10;
+
+
+    public char[][] getBattleBoard() {
+        return battleBoard;
+    }
+
+    public void setBattleBoard(char[][] battleBoard) {
+        this.battleBoard = battleBoard;
+    }
+
     private char[][] battleBoard;
 
 
