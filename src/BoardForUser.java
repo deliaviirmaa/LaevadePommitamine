@@ -2,9 +2,9 @@
  * Created by Delia on 05.01.2016.
  */
 public class BoardForUser {
-    Game newGame = new Game();
+   // Game newGame = new Game();
     private char[][] battleBoardForUser;
-
+   // public String username;
     public char[][] getBattleBoardForUser() {
         return battleBoardForUser;
     }
@@ -13,7 +13,7 @@ public class BoardForUser {
         this.battleBoardForUser = battleBoardForUser;
     }
 
-    private void createBattleBoardForUser() {
+    public void createBattleBoardForUser() {
         battleBoardForUser = new char[Board.LENGTH][Board.LENGTH];
         for (int i = 0; i < Board.LENGTH; i++) {
             for (int j = 0; j < Board.LENGTH; j++) {
@@ -23,8 +23,8 @@ public class BoardForUser {
     }
 
     public void printBattleBoardForUser() {
-        createBattleBoardForUser();
-        System.out.println(newGame.getUsername());
+        //createBattleBoardForUser();
+        //System.out.println(username);
         char[] t2hestik = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
         for (int k = 0; k <= Board.LENGTH - 1; k++) {
             if (k == 0) {

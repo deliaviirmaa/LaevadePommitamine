@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Game {
 
 
-    private static String username;
+    private String username;
     private char[] userGuess;
     private int x;
     private int y;
@@ -20,23 +20,16 @@ public class Game {
      */
     public void runGame() {
         introduction();
+        boardForUser.createBattleBoardForUser();
         boardForUser.printBattleBoardForUser();
         emptyBoard.buildBattleBoard();
-        emptyBoard.printBattleBoard();
+        //emptyBoard.printBattleBoard();
         while (numberOfHits < 20) {
             getValidUserGuess();
             modifyUserGuess(userGuess);
             isHit();
         }
-    }
-
-    public String getUsername() {
-        return username;
-
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        gameOver();
     }
 
     /**
@@ -50,7 +43,6 @@ public class Game {
         System.out.println("Sisesta oma nimi.");
         Scanner scanner = new Scanner(System.in);
         username = scanner.nextLine();
-        setUsername(username);
         return username;
     }
 
@@ -140,7 +132,6 @@ public class Game {
     private void modifyUserGuess(char[] userGuess) {
         modifyLetterFromQuess(userGuess);
         modifyNumberFromQuess(userGuess);
-        System.out.println("x: " + x + "y: " + y);
     }
 
     /**
@@ -191,7 +182,7 @@ public class Game {
      */
     private int modifyNumberFromQuess(char[] userGuess) {
         if (userGuess.length == 3) {
-            y = 10;
+            y = 9;
         } else {
             y = Character.getNumericValue(userGuess[1]) - 1;
         }
@@ -206,13 +197,15 @@ public class Game {
         if (emptyBoard.getBattleBoard()[x][y] == 'X') {
             System.out.println("Pihta!");
 
-            boardForUser.getBattleBoardForUser()[x][y]='X';
-//boardForUser.setBattleBoardForUser(boardForUser.getBattleBoardForUser());
+            boardForUser.getBattleBoardForUser()[x][y] = 'X';
             numberOfHits++;
         } else {
             System.out.println("Mööda!");
-
+            boardForUser.getBattleBoardForUser()[x][y] = '*';
         }
         boardForUser.printBattleBoardForUser();
+    }
+    private void gameOver(){
+        System.out.println("Mäng on läbi. Laevad leiti "+numberOfGuess+" pakkumisega.");
     }
 }

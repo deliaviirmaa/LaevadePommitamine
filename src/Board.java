@@ -43,7 +43,6 @@ public class Board {
      * See meetod pringib mänguväljale tähed ja numbrid.
      */
     public void printBattleBoard() {
-       // System.out.println(newGame.getUsername());
         char[] letters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'};
         for (int k = 0; k <= LENGTH - 1; k++) {
             if (k == 0) {
