@@ -10,7 +10,7 @@ public class Game {
     private char[] userGuess;
     private int x;
     private int y;
-
+    Board emptyBoard = new Board();
     /**
      * See meetod paneb mängu käima.
      */
@@ -19,10 +19,11 @@ public class Game {
         BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
         getValidUserGuess();
-        modifyUserGuess(userGuess);
-        Board emptyBoard = new Board();
+
+        //Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
+        isHit(modifyUserGuess(userGuess));
     }
 
     public String getUsername() {
@@ -177,5 +178,11 @@ public class Game {
           y=Character.getNumericValue(userGuess[1])-1;
         }
         return y;
+    }
+
+    private boolean isHit(char[][] userQuessInCoordinates){
+
+        if (emptyBoard.b) {
+        })
     }
 }
