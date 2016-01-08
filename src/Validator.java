@@ -117,13 +117,5 @@ public class Validator {
         }
         throw new RuntimeException("Impossible");
     }
-/**
-    private boolean possibleToPlaceShipeThere(ShipStartPoint startPoint, int shipLength, char[][] battleBoard) {
 
-    if(isEnoughFreeSpace(startPoint, shipLength) && noShipThere(startPoint,shipLength,battleBoard)) {
-        return startPoint;
-    }
-        return true;
-}
- */
 }

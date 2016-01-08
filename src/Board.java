@@ -23,9 +23,6 @@ public class Board {
 
     Validator validator = new Validator();
 
-// X-horisontaal (i) kui on ainult see, siis pringib ühe rea
-    // y-vertikaal (j) kui on see ka, siis hakkab sellele ühele reale alla asju printima
-
     /**
      * See meetod loob mänguvälja (kahemõõtmeline maatriks, mille pikkus on varem toodud LENGTH
      */
