@@ -5,7 +5,15 @@ public class BoardForUser {
     Game newGame = new Game();
     private char[][] battleBoardForUser;
 
-    private void createBattleBoardForUser(){
+    public char[][] getBattleBoardForUser() {
+        return battleBoardForUser;
+    }
+
+    public void setBattleBoardForUser(char[][] battleBoardForUser) {
+        this.battleBoardForUser = battleBoardForUser;
+    }
+
+    private void createBattleBoardForUser() {
         battleBoardForUser = new char[Board.LENGTH][Board.LENGTH];
         for (int i = 0; i < Board.LENGTH; i++) {
             for (int j = 0; j < Board.LENGTH; j++) {
@@ -41,6 +49,5 @@ public class BoardForUser {
 }
 
 /**
-kas ümbruses on x-e, muudan X-i 0-ks. Kui on 0, siis peab nulli ümbrust ka kontrollima.
-
+ * kas ümbruses on x-e, muudan X-i 0-ks. Kui on 0, siis peab nulli ümbrust ka kontrollima.
  */

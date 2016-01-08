@@ -13,13 +13,13 @@ public class Game {
     private int numberOfHits = 0;
     private int numberOfGuess = 0;
     Board emptyBoard = new Board();
+    BoardForUser boardForUser = new BoardForUser();
 
     /**
      * See meetod paneb mängu käima.
      */
     public void runGame() {
         introduction();
-        BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
@@ -134,6 +134,7 @@ public class Game {
 
     /**
      * See meetod muudab kasutaja poolt sisestatud andmed koordinaatideks
+     *
      * @param userGuess
      */
     private void modifyUserGuess(char[] userGuess) {
@@ -144,6 +145,7 @@ public class Game {
 
     /**
      * See meetod ütleb, mis tähele vastab mingi x koordinaat
+     *
      * @param userGuess
      * @return
      */
@@ -183,6 +185,7 @@ public class Game {
 
     /**
      * See meetod ütleb, mis numbrile vastab mingi y-koordinaat
+     *
      * @param userGuess
      * @return
      */
@@ -202,10 +205,14 @@ public class Game {
 
         if (emptyBoard.getBattleBoard()[x][y] == 'X') {
             System.out.println("Pihta!");
+
+            boardForUser.getBattleBoardForUser()[x][y]='X';
+//boardForUser.setBattleBoardForUser(boardForUser.getBattleBoardForUser());
             numberOfHits++;
         } else {
             System.out.println("Mööda!");
 
         }
+        boardForUser.printBattleBoardForUser();
     }
 }
