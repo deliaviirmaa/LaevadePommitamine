@@ -8,6 +8,8 @@ public class Game {
 
     private static String username;
     private char[] userGuess;
+    private int x;
+    private int y;
 
     /**
      * See meetod paneb mängu käima.
@@ -17,6 +19,7 @@ public class Game {
         BoardForUser boardForUser = new BoardForUser();
         boardForUser.printBattleBoardForUser();
         getValidUserGuess();
+        modifyUserGuess(userGuess);
         Board emptyBoard = new Board();
         emptyBoard.buildBattleBoard();
         emptyBoard.printBattleBoard();
@@ -33,6 +36,7 @@ public class Game {
 
     /**
      * See meetod näitab kasutajale sissejuhatust ja küsib kasutajanime
+     *
      * @return
      */
     private String introduction() {
@@ -47,6 +51,7 @@ public class Game {
 
     /**
      * See meetod tagastab korrektselt sisestatud kasutaja pakkumise
+     *
      * @return
      */
     private char[] getValidUserGuess() {
@@ -60,6 +65,7 @@ public class Game {
 
     /**
      * See meetod küsib kasutajalt pakkumist
+     *
      * @return
      */
     private char[] getUserGuess() {
@@ -74,6 +80,7 @@ public class Game {
 
     /**
      * See meetod kontrollib, kas sisestus oli õige või on vaja uuesti küsida kasutajalt sisestust
+     *
      * @param userGuess
      * @return
      */
@@ -90,6 +97,7 @@ public class Game {
 
     /**
      * See meetod kontrollib, kas sisestuses esimene sümbol on korrektne täht
+     *
      * @param userGuess
      * @return
      */
@@ -103,6 +111,7 @@ public class Game {
 
     /**
      * See meetod kontrollib, kas sisestuses numbrite osa on vastavuses reeglitega
+     *
      * @param userGuess
      * @return
      */
@@ -117,4 +126,56 @@ public class Game {
         return false;
     }
 
+    private char[][] modifyUserGuess(char[] userGuess) {
+
+        char[][] userGuessInCoordinates;
+        modifyLetterFromQuess(userGuess);
+        modifyNumberFromQuess(userGuess);
+        userGuessInCoordinates = new char[x][y];
+        System.out.println("x: "+x+"y: "+y);
+        return userGuessInCoordinates;
+    }
+
+    private int modifyLetterFromQuess(char[] userGuess) {
+        if (userGuess[0] == 'A') {
+            x = 0;
+        }
+        if (userGuess[0] == 'B') {
+            x = 1;
+        }
+        if (userGuess[0] == 'C') {
+            x = 2;
+        }
+        if (userGuess[0] == 'D') {
+            x = 3;
+        }
+        if (userGuess[0] == 'E') {
+            x = 4;
+        }
+        if (userGuess[0] == 'F') {
+            x = 5;
+        }
+        if (userGuess[0] == 'G') {
+            x = 6;
+        }
+        if (userGuess[0] == 'H') {
+            x = 7;
+        }
+        if (userGuess[0] == 'I') {
+            x = 8;
+        }
+        if (userGuess[0] == 'J') {
+            x = 9;
+        }
+        return x;
+    }
+
+    private int modifyNumberFromQuess(char[] userGuess) {
+        if (userGuess.length == 3) {
+            y = 10;
+        } else {
+          y=Character.getNumericValue(userGuess[1])-1;
+        }
+        return y;
+    }
 }
